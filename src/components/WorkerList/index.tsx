@@ -31,13 +31,15 @@ const WorkerList: React.FC<Props> = ({ initWorkerList }) => {
   const [keyword, setKeyword] = useState<string>('');
 
   useEffect(() => {
-    setWorkerList(
-      initWorkerList.filter(
+    const processedWorkerList = initWorkerList
+      .filter(
         (worker) =>
           isSelectedGeneration(worker, selectedGeneration) &&
           isIncludesKeyword(worker, keyword)
       )
-    );
+      .sort(() => Math.random() - 0.5);
+
+    setWorkerList(processedWorkerList);
   }, [keyword, selectedGeneration, initWorkerList]);
 
   return (
